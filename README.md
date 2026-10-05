@@ -8,22 +8,6 @@ First-time e-Transfer often requires manually entering and saving a recipient. T
 
 The biggest shortcut is for first-time payees and one-time business payments. V1 includes only Autodeposit recipients: without Autodeposit, the recipient may choose among their accounts after receiving an e-Transfer, while an Autodeposit alias is registered to a selected account. IntQRac adds an e-Transfer option without changing Visa or Mastercard acceptance or card checkout. It does not direct customers away from credit cards; real payment-method mix would depend on business rollout and customer choice.
 
-## Demo
-
-1. Open **Generate Payment QR**, enter `john@example.com`, and generate a static QR.
-2. On a second device, open **Demo Bank → Scan QR → Scan with camera** and point at the generated image. Or, on one phone, **Save QR**, then **Choose from Photos** in the Demo Bank.
-3. Confirm that the alias came from the image and `JOHN A SMITH` came from the mock resolver.
-4. Enter `$25`, review, and send. The simulated balance and local history update.
-5. Open **Developer view** to inspect logical endpoint requests, responses, and timing.
-
-For an instant demo, **Use Sample QR** offers person-to-person, small business, pre-filled order, non-Autodeposit, and unsupported QR scenarios. Each is a bundled PNG that passes through the same image decoder as an uploaded photo: ZXing first, with a jsQR fallback. The generator does not pass recipient data to the bank route. Unknown recipients remain handled by the mock service but are not a featured demo scenario.
-
-## Manual GitHub Pages deployment
-
-In the GitHub repository, set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. Then open **Actions → Deploy IntQRac to GitHub Pages → Run workflow** and select the branch to publish. This workflow has only a manual `workflow_dispatch` trigger; pushes do not deploy it.
-
-The expected project-site URL is `https://cosmomelon.github.io/IntQRac/`. The Pages build derives its `/IntQRac/` asset path from the repository name and uses hash routes, such as `/IntQRac/#/bank`, so refreshing a demo page works on static hosting. Local development continues to use normal browser routes.
-
 ## QR protocol
 
 The experimental namespace is `ietqr://pay`, deliberately separate from any official Interac URI namespace.
