@@ -14,6 +14,12 @@ IntQRac is a concept alongside existing Canadian payment experiences, not a repl
 
 The app's **Current Canadian Landscape** page compares a conceptual Business Request Money QR journey with the proposed payer-initiated IntQRac journey. It labels current-service research separately from the fictional bank demo, identifies the participating institutions Interac currently lists, and marks broader everyday QR use as a hypothesis to validate. The diagrams are illustrative; customer screens vary by institution and implementation.
 
+## GitHub Pages deployment
+
+This repository is the IntQRac organization site at [intqrac.github.io](https://intqrac.github.io/). In **Settings → Pages**, set the build source to **GitHub Actions**. Deploy from **Actions → Deploy IntQRac to GitHub Pages → Run workflow**. The workflow runs only when manually triggered; pushing a commit does not publish the site.
+
+The Pages build serves assets from `/` and uses hash routes such as `https://intqrac.github.io/#/bank`, so linked pages work when refreshed. Local development continues to use normal browser routes.
+
 ## QR protocol
 
 The experimental namespace is `ietqr://pay`, deliberately separate from any official Interac URI namespace.
