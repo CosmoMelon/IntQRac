@@ -8,6 +8,12 @@ First-time e-Transfer often requires manually entering and saving a recipient. T
 
 The biggest shortcut is for first-time payees and one-time business payments. V1 includes only Autodeposit recipients: without Autodeposit, the recipient may choose among their accounts after receiving an e-Transfer, while an Autodeposit alias is registered to a selected account. IntQRac adds an e-Transfer option without changing Visa or Mastercard acceptance or card checkout. It does not direct customers away from credit cards; real payment-method mix would depend on business rollout and customer choice.
 
+## Current Canadian landscape
+
+IntQRac is a concept alongside existing Canadian payment experiences, not a replacement for them. Ordinary e-Transfer begins with a sender in their banking app. [Interac Business Request Money](https://www.interac.ca/en/payments/business/interac-e-transfer-business-request-money/) is an existing business payment-collection capability that can be offered through websites, apps, invoices, and merchant QR codes after setup through a participating financial institution. Its business request workflow can support payment collection and reconciliation; it is not just an ordinary recipient alias in a QR.
+
+The app's **Current Canadian Landscape** page compares a conceptual Business Request Money QR journey with the proposed payer-initiated IntQRac journey. It labels current-service research separately from the fictional bank demo, identifies the participating institutions Interac currently lists, and marks broader everyday QR use as a hypothesis to validate. The diagrams are illustrative; customer screens vary by institution and implementation.
+
 ## QR protocol
 
 The experimental namespace is `ietqr://pay`, deliberately separate from any official Interac URI namespace.
@@ -43,8 +49,8 @@ One schema serves both cases. Unknown optional fields are ignored; `req_` fields
 The app simulates the **sender-side** flow in one browser. It has no backend, authentication, cross-device state sync, settlement, recipient notification, or real financial connection. NorthBank and all recipients, accounts, balances, transfers, and confirmation IDs are fictional.
 
 - **V1:** scan an email/phone QR, Autodeposit only, payer-entered amount.
-- **V1.1:** pre-filled amount, note, and reference, still editable. Demonstrated by the shared v1 schema.
-- **V2 concept only:** request IDs, expiry, authenticated business identity, request-backed amount, callbacks, and real financial institution integration.
+- **V1.1:** pre-filled amount, note, and reference in the shared v1 schema. Amount and note can be edited in the demo; the reference is displayed for review.
+- **V2 concept only:** possible request IDs, expiry, authenticated business identity, and real financial institution integration. This is not a Business Request Money replacement.
 
 ## Disclaimer
 
