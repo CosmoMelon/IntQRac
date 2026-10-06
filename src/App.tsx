@@ -16,6 +16,7 @@ import type { TransferResponse } from './features/transfers/transferTypes';
 import { flowLogger } from './features/developer/flowLogger';
 import DeveloperInspector from './features/developer/DeveloperInspector';
 import Landscape from './Landscape';
+import { goatCounterEvent, simpleAnalyticsEvent } from './telemetry';
 
 const money = (n: number) => new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' }).format(n);
 const disclaimer = 'IntQRac is an independent concept prototype demonstrating a proposed QR-based interaction for Interac e-Transfer. It is not affiliated with, endorsed by, or connected to Interac, TD, CIBC, Scotiabank, Wealthsimple, or any Canadian financial institution.';
@@ -31,6 +32,17 @@ const samples = [
 function App() {
   const [inspectorOpen, setInspectorOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const previousTelemetryPath = useRef<string | null>(null);
+
+  useEffect(() => {
+    const path = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    if (previousTelemetryPath.current === path) return;
+    previousTelemetryPath.current = path;
+    goatCounterEvent(path);
+    simpleAnalyticsEvent('page_change', { path });
+  }, [location.pathname, location.search, location.hash]);
+
   return <div className="site-shell">
     <header className="site-header"><div className="container header-inner"><Link className="brand" to="/" onClick={() => setMenuOpen(false)}><span className="brand-mark"><QrCode size={21} strokeWidth={2.5} /></span><span>Int<span className="brand-accent">QR</span>ac<span className="brand-period">.</span></span></Link><nav className={menuOpen ? 'main-nav open' : 'main-nav'} aria-label="Main navigation" onClick={() => setMenuOpen(false)}><NavLink to="/bank">Demo</NavLink><NavLink to="/standard">QR Standard</NavLink><NavLink to="/security">Security</NavLink><NavLink to="/rationale">Product Rationale</NavLink><NavLink to="/landscape">Canadian Landscape</NavLink></nav><div className="header-actions"><button className="dev-trigger" onClick={() => setInspectorOpen(true)} title="Open flow inspector"><Code2 size={16} /><span>Developer view</span></button><button className="menu-button" onClick={() => setMenuOpen(v => !v)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}>{menuOpen ? <X size={23} /> : <Menu size={23} />}</button></div></div></header>
     <main><Routes><Route path="/" element={<Home />} /><Route path="/generate" element={<Generator />} /><Route path="/inspect" element={<InspectorPage />} /><Route path="/bank" element={<Bank />} /><Route path="/standard" element={<Standard />} /><Route path="/security" element={<Security />} /><Route path="/rationale" element={<Rationale />} /><Route path="/landscape" element={<Landscape />} /><Route path="/comparison" element={<Comparison />} /></Routes></main>
